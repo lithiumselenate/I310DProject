@@ -14,7 +14,6 @@ X_tensor = torch.from_numpy(x).float()
 y_tensor = torch.from_numpy(y).float()
 dataset = TensorDataset(X_tensor, y_tensor)
 dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
-# Convert to PyTorch tensors
 class model(nn.Module):
     def __init__(self):
         super().__init__()
@@ -30,13 +29,13 @@ class model(nn.Module):
         x = self.act1(self.l1(x)) 
         x = self.act2(self.l2(x))  
         x = self.act3(self.l3(x)) 
-        x = self.sigmoid(self.output(x))  # Apply output to x, then apply sigmoid
+        x = self.sigmoid(self.output(x)) 
         return x
 nnmodel = model()
 device = torch.device("cuda")
 criterion = nn.BCELoss()
 optimizer = optim.Adam(nnmodel.parameters(), lr=0.001)
-num_epochs = 300  # Set the number of epochs
+num_epochs = 300  
 losses = []
 accs = []
 for epoch in range(num_epochs):
