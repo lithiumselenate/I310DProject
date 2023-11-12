@@ -47,7 +47,6 @@ for epoch in range(num_epochs):
         outputs = nnmodel(inputs)
         outputs = torch.squeeze(outputs)
         loss = criterion(outputs, labels)
-        loss = criterion(outputs, labels)
         total_loss += loss.item() * inputs.size(0)
         optimizer.zero_grad()
         loss.backward()
