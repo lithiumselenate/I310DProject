@@ -13,3 +13,7 @@ y_actual = test["Churn"]
 y_predicted_lr = classifier.predict(test_inputs.to_numpy())
 accuracy_score = accuracy_score(y_predicted_lr,y_actual)
 print (f"Accuracy of the Logistic Classifier = {accuracy_score}")
+import pickle
+file_to_write = open("logistic.saved","wb")
+pickle.dump(classifier,file_to_write)
+file_to_write.close()
