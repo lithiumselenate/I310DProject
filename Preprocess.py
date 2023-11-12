@@ -4,7 +4,6 @@ import numpy as np
 # Data preprocessing
 data = pd.read_csv('WA_Fn-UseC_-Telco-Customer-Churn.csv')
 data.drop('customerID', axis = 1, inplace=True)
-#Data preprocessing
 def female_male(str1):
     if str1=='Female':
          return 1
@@ -58,6 +57,10 @@ def Payment_toNum(str1):
     return 0
 data['PaymentMethod'] = data['PaymentMethod'].apply(Payment_toNum)
 data.to_csv('Processsed_data.csv')
+train_data = data.sample(frac = 0.8)
+test_data = data.drop(train_data.index)
+train_data.to_csv("train_data.csv")
+test_data.to_csv('test_data.csv')
 
 
 
