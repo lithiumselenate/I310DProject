@@ -59,8 +59,8 @@ data['PaymentMethod'] = data['PaymentMethod'].apply(Payment_toNum)
 data.to_csv('Processsed_data.csv')
 train_data = data.sample(frac = 0.8)
 test_data = data.drop(train_data.index)
-train_data.to_csv("train_data.csv")
-test_data.to_csv('test_data.csv')
+train_data.to_csv("train_data.csv", index = False)
+test_data.to_csv('test_data.csv', index = False)
 
 
 
