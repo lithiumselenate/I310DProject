@@ -7,19 +7,16 @@ import numpy as np
 class mymodel(nn.Module):
     def __init__(self):
         super().__init__()
-        self.l1 = nn.Linear(10,30)
-        self.l2 = nn.Linear(30,30)
-        self.l3 = nn.Linear(30,10)
-        self.output = nn.Linear(10,1)
+        self.l1 = nn.Linear(10,5)
+        self.l2 = nn.Linear(5,3)
+        self.output = nn.Linear(3,1)
         self.sigmoid = nn.Sigmoid()
         self.act1 = nn.ReLU()
         self.act2 = nn.ReLU()
-        self.act3 = nn.ReLU()
     def forward(self, x):
         x = self.act1(self.l1(x)) 
         x = self.act2(self.l2(x))  
-        x = self.act3(self.l3(x)) 
-        x = self.sigmoid(self.output(x))  
+        x = self.sigmoid(self.output(x)) 
         return x
 model = mymodel()  
 model.load_state_dict(torch.load('model.pt'))  

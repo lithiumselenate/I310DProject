@@ -15,24 +15,21 @@ X_tensor = torch.from_numpy(x).float()
 y_tensor = torch.from_numpy(y).float()
 dataset = TensorDataset(X_tensor, y_tensor)
 dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
-class model(nn.Module):
+class mymodel(nn.Module):
     def __init__(self):
         super().__init__()
-        self.l1 = nn.Linear(10,30)
-        self.l2 = nn.Linear(30,30)
-        self.l3 = nn.Linear(30,10)
-        self.output = nn.Linear(10,1)
+        self.l1 = nn.Linear(10,5)
+        self.l2 = nn.Linear(5,3)
+        self.output = nn.Linear(3,1)
         self.sigmoid = nn.Sigmoid()
         self.act1 = nn.ReLU()
         self.act2 = nn.ReLU()
-        self.act3 = nn.ReLU()
     def forward(self, x):
         x = self.act1(self.l1(x)) 
         x = self.act2(self.l2(x))  
-        x = self.act3(self.l3(x)) 
         x = self.sigmoid(self.output(x)) 
         return x
-nnmodel = model()
+nnmodel = mymodel()
 device = torch.device("cuda")
 criterion = nn.BCELoss()
 optimizer = optim.Adam(nnmodel.parameters(), lr=0.001)
@@ -65,4 +62,4 @@ plt.plot(losses)
 plt.plot(accs,)
 plt.xlabel("Epochs")
 plt.show()
-
+ 
