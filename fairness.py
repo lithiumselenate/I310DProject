@@ -26,11 +26,18 @@ model.load_state_dict(torch.load('model.pt'))
 model.eval()
 data = pd.read_csv('test_data.csv')
 data['TotalCharges'].apply(float)
-data1 = data[['Partner','SeniorCitizen','Dependents','OnlineSecurity','TechSupport','InternetService','DeviceProtection','StreamingTV','StreamingMovies','Contract','Churn']]
-x = data1.iloc[:,:-1].to_numpy()
-y = data1.iloc[:, -1].to_numpy() 
+datam = data[data['gender']==-1]
+dataf = data[data['gender']==1]
+datam = datam[['Partner','SeniorCitizen','Dependents','OnlineSecurity','TechSupport','InternetService','DeviceProtection','StreamingTV','StreamingMovies','Contract','Churn']]
+dataf = dataf[['Partner','SeniorCitizen','Dependents','OnlineSecurity','TechSupport','InternetService','DeviceProtection','StreamingTV','StreamingMovies','Contract','Churn']]
+x = datam.iloc[:,:-1].to_numpy()
+y = datam.iloc[:, -1].to_numpy() 
+x1 = dataf.iloc[:,:-1].to_numpy()
+y1 = dataf.iloc[:, -1].to_numpy()
 X_tensor = torch.from_numpy(x).float()
 y_tensor = torch.from_numpy(y).float()
+X_tensor1 = torch.from_numpy(x1).float()
+y_tensor1 = torch.from_numpy(y1).float()
 dataset = TensorDataset(X_tensor, y_tensor)
 dataloader = DataLoader(dataset, batch_size=32, shuffle=False)
 correct = 0
@@ -43,5 +50,18 @@ with torch.no_grad():
         correct += (predicted == labels).sum().item()
 
 accuracy = correct / total
-print(f'Accuracy of the model on the test data: {accuracy}')
+print(f'Accuracy of the model on the test data upon female: {accuracy}')
+dataset = TensorDataset(X_tensor1, y_tensor1)
+dataloader = DataLoader(dataset, batch_size=32, shuffle=False)
+correct = 0
+total = 0
+with torch.no_grad():
+    for inputs, labels in dataloader:
+        outputs = model(inputs)
+        _, predicted = torch.max(outputs.data, 1)
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
+
+accuracy = correct / total
+print(f'Accuracy of the model on the test data upon male: {accuracy}')
 
