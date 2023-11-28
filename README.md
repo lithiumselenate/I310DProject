@@ -14,7 +14,7 @@ difference in orange/blue column ratio is displayed. Other graphs include billin
 -  10-7-3-1
 -  10-5-3-1
 -  Accuracy are mostly same of 0.7324
-
+I have also tried to include all columns(except ID) in training, and the accuracy remains 0.73 :)
 ## preprocess.py
 -  preprocess the data to numerical valules. Sadly I recalled to use sklearn after I finished this part.
 ## training.py
